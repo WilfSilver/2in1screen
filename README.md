@@ -19,7 +19,7 @@ version:
   If the script does not exist it will just print an error but recover.
 
   Example of my `.xrandr-changed` which deals with rotating touch devices
-  ```
+  ```sh
   #!/usr/bin/env sh
 
   display="eDP1"
@@ -41,7 +41,7 @@ version:
 
 ## Install
 
-```
+```sh
 git clone https://github.com/WilfSilver/2in1screen
 cd 2in1screen
 ```
@@ -64,7 +64,7 @@ Other compile options you may want to experiment with
 
 You can then install with these options by going:
 
-```
+```sh
 zig build install -Doptimize=ReleaseFast -D<option>=<value> -p ~/.local
 ```
 
@@ -75,19 +75,19 @@ Which will install it to your `~/.local/bin` folder
 Default: Start daemon to listen to accelerator for change and rotate as
 necessary.
 
-```
+```sh
 2in1screen &
 ```
 
 Stop the daemon
 
-```
+```sh
 pkill 2in1screen
 ```
 
 Rotate the screen back to upright
 
-```
+```sh
 2in1screen 0
 ```
 
