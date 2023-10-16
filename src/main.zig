@@ -6,7 +6,6 @@ const Allocator = std.mem.Allocator;
 // OPTIONS
 const opts = @import("build_options");
 
-// Add script length so we can automatically deal with that being really long
 const DATA_SIZE = opts.buffer_size + opts.script.len;
 const N_STATE: bool = opts.n_state;
 const OUTPUT: []const u8 = opts.output;

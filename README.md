@@ -22,7 +22,7 @@ version:
   ```sh
   #!/usr/bin/env sh
 
-  display="eDP1"
+  display="eDP-1"
   xinput --map-to-output "Wacom HID 48EE Finger touch" $display
   xinput --map-to-output "Wacom HID 48EE Pen stylus"   $display
   xinput --map-to-output "Wacom HID 48EE Pen eraser"   $display
@@ -50,7 +50,7 @@ Before we build there are some options you may want to change:
 
 (These options with their defaults can be seen by going `zig build --help`)
 
-- `display` - The display name of your touchscreen (e.g. `eDP1`)
+- `display` - The display name of your touchscreen (e.g. `eDP-1`)
 - `script` - The script to run
 
 Other compile options you may want to experiment with
@@ -68,7 +68,10 @@ You can then install with these options by going:
 zig build install -Doptimize=ReleaseFast -D<option>=<value> -p ~/.local
 ```
 
-Which will install it to your `~/.local/bin` folder
+Which will install it to your `~/.local/bin` folder.
+
+NOTE: Sadly this cannot currently compile with `ReleaseSmall` because issue
+with running child process.
 
 ## Usage
 
