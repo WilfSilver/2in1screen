@@ -39,11 +39,11 @@ const Device = struct {
     fn openProp(self: *Device, fname: []const u8) !PropertyInfo {
         const end = self.name_len;
         self.buf[end] = '/';
-        std.mem.copy(u8, self.buf[end + 1 ..], fname);
+        std.mem.copyForwards(u8, self.buf[end + 1 ..], fname);
         const file_name = self.buf[0 .. end + fname.len + 1];
 
         std.log.debug("Opening file {s}", .{file_name});
-        var file = try std.fs.cwd().openFile(file_name, .{});
+        const file = try std.fs.cwd().openFile(file_name, .{});
 
         return PropertyInfo{ .file = file };
     }
@@ -234,7 +234,7 @@ fn rotateScreen(current_state: u2, allocator: Allocator, update_script: ?[]const
 fn findDevice(allocator: Allocator, buffer: []u8, dir_path: []const u8) ![]u8 {
     const pattern_match = try std.fmt.bufPrint(buffer, "{s}/{s}", .{ dir_path, "iio:device*/in_accel*" });
 
-    const res = try std.ChildProcess.exec(.{
+    const res = try std.ChildProcess.run(.{
         .argv = &[_][]const u8{
             "find",
             "-L",
@@ -255,7 +255,7 @@ fn findDevice(allocator: Allocator, buffer: []u8, dir_path: []const u8) ![]u8 {
     const first_line = line_it.next();
     if (first_line) |path| {
         if (std.fs.path.dirname(path)) |device_path| {
-            std.mem.copy(u8, buffer, device_path);
+            std.mem.copyForwards(u8, buffer, device_path);
             return buffer[0..device_path.len];
         }
     }
